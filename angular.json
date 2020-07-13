@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "tooltip-app"
+    }
+  },
+  "defaultProject": "tooltip-app",
+  "cli": {
+    "analytics": "2acde991-3827-49eb-85bf-3b52eb224370"
+  }
 }
