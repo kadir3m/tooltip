@@ -1,22 +1,19 @@
-import { Inject, Injectable } from '@angular/core';
+import { Inject, Injectable, Renderer2 } from '@angular/core';
 import { DOCUMENT } from '@angular/common';
 
 @Injectable({ providedIn: 'root' })
 export class OverlayService {
   private el: HTMLDivElement;
-  constructor(@Inject(DOCUMENT) private _document: any) {
-    const el = this._document.createElement('div');
-    el.className = 'tooltip';
-    this.el = el;
-  }
+  constructor() {}
 
   close() {
-    this.el.hidden = true;
+    const elements = document.getElementsByClassName('tooltipbox');
+    while (elements.length > 0) {
+      elements[0].remove();
+    }
   }
 
-  open(el, text, position) {
-
-  }
+  open() {}
 
   attach(target) {
     target.appendChild(this.el);

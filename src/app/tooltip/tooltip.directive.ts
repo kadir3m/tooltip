@@ -1,4 +1,10 @@
-import { Directive, Input, ElementRef, HostListener, Renderer2 } from '@angular/core';
+import {
+  Directive,
+  Input,
+  ElementRef,
+  HostListener,
+  Renderer2,
+} from '@angular/core';
 import { OverlayService } from './service/overlay.service';
 import { JsonPipe } from '@angular/common';
 
@@ -9,25 +15,27 @@ export class TooltipDirective {
   @Input('appTooltip') values: any;
   tooltip: HTMLElement;
   offset = 18;
-  constructor(private el: ElementRef, private overlay: OverlayService,private renderer:Renderer2) {
-    this.overlay.attach(el.nativeElement);
-  }
+  constructor(
+    private el: ElementRef,
+    private overlay: OverlayService,
+    private renderer: Renderer2
+  ) {}
 
   @HostListener('mouseenter')
   onMouseEnter() {
     this.create();
     this.setPosition();
-    this.renderer.addClass(this.tooltip,'tooltipbox')
+    this.renderer.addClass(this.tooltip, 'tooltipbox');
   }
 
   @HostListener('mouseleave')
   onMouseLeave() {
-   this.hide()
+    this.hide();
   }
 
-  hide(){
-    // this.renderer.setStyle(this.tooltip,'display','none')
-    this.tooltip.hidden=true;
+  hide() {
+    // this.tooltip.hidden = true;
+    this.overlay.close();
   }
 
   create() {
@@ -39,16 +47,19 @@ export class TooltipDirective {
     );
 
     this.renderer.appendChild(document.body, this.tooltip);
-    this.renderer.addClass(this.tooltip,`tooltipbox-${this.values.position}`)
+    this.renderer.addClass(this.tooltip, `tooltipbox-${this.values.position}`);
     // this.renderer.appendChild(this.el.nativeElement, this.tooltip);
-
   }
-  
+
   setPosition() {
     const hostPos = this.el.nativeElement.getBoundingClientRect();
 
     const tooltipPos = this.tooltip.getBoundingClientRect();
-    const scrollPos = window.pageYOffset || document.documentElement.scrollTop || document.body.scrollTop || 0;
+    const scrollPos =
+      window.pageYOffset ||
+      document.documentElement.scrollTop ||
+      document.body.scrollTop ||
+      0;
 
     let top, left;
 
